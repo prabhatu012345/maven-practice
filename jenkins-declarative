@@ -1,10 +1,18 @@
 pipeline{
 agent any
+environment{
+  PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
+}
 stages{
   stage("Git Checkout"){
     steps{
         git branch: 'main', credentialsId: 'c71e520c-1bc5-48bd-ac8e-a5f2103eb647', url: 'https://github.com/prabhatu012345/maven-practice.git'
       }
+    }
+  stage("Build"){
+    steps{
+        sh "mvn clean package"
+     }
     }
   }
 }
