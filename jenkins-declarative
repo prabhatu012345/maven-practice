@@ -12,7 +12,19 @@ stages{
   stage("Build"){
     steps{
         sh "mvn clean package"
+        sh "mv target/*.war target/myweb.war" 
      }
+    }
+  stage("Deploy"){
+    steps{
+        sshagent(['c71e520c-1bc5-48bd-ac8e-a5f2103eb647']) {
+            sh"""
+              scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@172.31.2.23:/opt//opt/tomcat/apache-tomcat-9.0.76/webapps
+              ssh ubuntu@172.31.2.23 /opt/tomcat/apache-tomcat-9.0.76/shutdown.sh
+              ssh ubuntu@172.31.2.23 /opt/tomcat/apache-tomcat-9.0.76/startup.sh
+            """
+}
+        }
     }
   }
 }
