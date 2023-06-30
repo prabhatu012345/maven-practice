@@ -19,11 +19,11 @@ stages{
     steps{
         sshagent(['tomcat']){
             sh"""
-              scp -o StrictHostKeyChecking=no target/myweb.jar ubuntu@172.31.2.23:/opt/tomcat/apache-tomcat-9.0.76/webapps
+              scp -o StrictHostKeyChecking=no target/myweb.jar ubuntu@172.31.2.23:/opt/tomcat/apache-tomcat-9.0.76/webapps/
               ssh ubuntu@172.31.2.23 /opt/tomcat/apache-tomcat-9.0.76/shutdown.sh
               ssh ubuntu@172.31.2.23 /opt/tomcat/apache-tomcat-9.0.76/startup.sh
             """
-}
+          }
         }
     }
   }
