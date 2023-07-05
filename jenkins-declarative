@@ -18,7 +18,7 @@ stages{
     }
   stage("Deploy"){
     steps{
-        sshagent(['tomcat']){
+        sshagent(['Tomcat']){
             sh"""
               scp -o StrictHostKeyChecking=no target/myweb.jar ubuntu@172.31.2.23:/opt/tomcat/apache-tomcat-9.0.76/webapps/
               ssh ubuntu@172.31.2.23 /opt/tomcat/apache-tomcat-9.0.76/shutdown.sh
