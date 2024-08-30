@@ -16,6 +16,12 @@ stages{
         sh "mv target/*.jar target/myweb.jar" 
      }
     }
+stage('Archive Artifacts') {
+            steps {
+                // Archive artifacts
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            }
+        }
   stage("Deploy"){
     steps{
         sshagent(['Tomcat']){
